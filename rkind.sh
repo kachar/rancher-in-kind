@@ -7,8 +7,10 @@ set -u
 set -o pipefail
 
 RANCHER_CONTAINER_NAME="rancher-for-kind"
-RANCHER_HTTP_HOST_PORT=$[$[RANDOM%9000]+30000]
-RANCHER_HTTPS_HOST_PORT=$[$[RANDOM%9000]+30000]
+RANCHER_HTTP_HOST_PORT=$[34444]
+RANCHER_HTTPS_HOST_PORT=$[35555]
+# RANCHER_HTTP_HOST_PORT=$[$[RANDOM%9000]+30000]
+# RANCHER_HTTPS_HOST_PORT=$[$[RANDOM%9000]+30000]
 : ${KIND_CLUSTER_NAME:="kind-for-rancher"}
 
 info() {
@@ -155,6 +157,7 @@ if [[ $(docker ps -f name=${RANCHER_CONTAINER_NAME} -q | wc -l) -ne 0 ]]; then
 fi
 info "Launching Rancher container"
 if docker run -d \
+              --privileged \
               --restart=unless-stopped \
               --name ${RANCHER_CONTAINER_NAME}  \
               -p ${RANCHER_HTTP_HOST_PORT}:80   \
@@ -200,7 +203,7 @@ cat >&2 <<EOM
 
     curl --insecure -sfL https://${localip}:${RANCHER_HTTPS_HOST_PORT}/v3/import/6qbm7q9lk7gmqsgt4l2hrrchlxbfh6fjskzb8tx84mjrl9jvhb8xcm.yaml | kubectl apply -f -
 
-- set context to kind cluster 
+- set context to kind cluster
 
 kubectl cluster-info --context ${KIND_CLUSTER_NAME}
 
