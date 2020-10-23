@@ -8,7 +8,7 @@ URL="$1"
 KIND_CLUSTER_NAME="${2:-kind-for-rancher}"
 PASSWORD="password"
 
-echo $URL
+echo "Sending requests to https://${URL}/ping"
 
 while ! curl -k "https://${URL}/ping"; do sleep 3; done
 

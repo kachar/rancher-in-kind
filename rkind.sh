@@ -218,4 +218,4 @@ echo https://${localip}:${RANCHER_HTTPS_HOST_PORT} > rancher_url_$(date +%Y%m%d%
 ./add-cluster.sh "${localip}:${RANCHER_HTTPS_HOST_PORT}" ${KIND_CLUSTER_NAME}
 
 # Open Rancher UI in browser
-open https://${localip}:${RANCHER_HTTPS_HOST_PORT}
+sensible-browser https://${localip}:${RANCHER_HTTPS_HOST_PORT}

@@ -25,3 +25,11 @@ nodes:
   - containerPort: 8445
     hostPort: 8445
     listenAddress: "0.0.0.0"
+# - role: worker
+#   extraMounts:
+#   - hostPath: ./data
+#     containerPath: /data
+# - role: worker
+#   extraMounts:
+#   - hostPath: ./data
+#     containerPath: /data
